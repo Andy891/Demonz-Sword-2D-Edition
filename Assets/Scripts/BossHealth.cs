@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Fungus;
+
 
 public class BossHealth : MonoBehaviour
 {
@@ -10,9 +12,12 @@ public class BossHealth : MonoBehaviour
 
     public GameObject deathEffect, weakPointPrefab;
     [SerializeField] private AudioClip BossDieSound;
+    [SerializeField] private string blockName;
 
 
     public bool isInvulnerable = false;
+    public Flowchart Flowchart;
+
 
 
 
@@ -61,8 +66,13 @@ public class BossHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            if (Flowchart != null && !string.IsNullOrEmpty(blockName))
+            {
+                Flowchart.ExecuteBlock(blockName);
+            }
             Die();
             SoundManager.instance.PlaySound(BossDieSound);
+
 
         }
         Debug.Log(health);
