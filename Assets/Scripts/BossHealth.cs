@@ -5,12 +5,11 @@ using UnityEngine;
 using Fungus;
 
 
-public class BossHealth : MonoBehaviour
-{
+public class BossHealth : MonoBehaviour {
 
     public int health = 20, enrageHp = 10;
 
-    public GameObject deathEffect, weakPointPrefab;
+    public GameObject deathEffect, weakPointPrefab, block;
     [SerializeField] private AudioClip BossDieSound;
     [SerializeField] private string blockName;
 
@@ -25,23 +24,18 @@ public class BossHealth : MonoBehaviour
 
     int activeWeakPointCount;
 
-    private void Update()
-    {
-        if (health <= 0)
-        {
+    private void Update() {
+        if (health <= 0) {
             return;
         }
         activeWeakPointCount = 0;
-        foreach (var weakPoint in weakPoints)
-        {
+        foreach (var weakPoint in weakPoints) {
             BossWeakPointController bossWeakPointController = weakPoint.GetComponent<BossWeakPointController>();
-            if (bossWeakPointController.isActive)
-            {
+            if (bossWeakPointController.isActive) {
                 activeWeakPointCount++;
             }
         }
-        if (activeWeakPointCount <= 0)
-        {
+        if (activeWeakPointCount <= 0) {
             int i = Random.Range(0, weakPoints.Length);
             Instantiate(weakPointPrefab, weakPoints[i].transform);
             BossWeakPointController bossWeakPointController = weakPoints[i].GetComponent<BossWeakPointController>();
@@ -49,39 +43,33 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(int damage) {
         if (isInvulnerable)
             return;
 
         health -= damage;
-        if (health > 0)
-        {
+        if (health > 0) {
             GetComponent<Animator>().SetTrigger("Hit");
         }
-        if (health <= enrageHp)
-        {
+        if (health <= enrageHp) {
             GetComponent<Animator>().SetBool("IsEnraged", true);
         }
 
-        if (health <= 0)
-        {
-            if (Flowchart != null && !string.IsNullOrEmpty(blockName))
-            {
+        if (health <= 0) {
+            if (Flowchart != null && !string.IsNullOrEmpty(blockName)) {
                 Flowchart.ExecuteBlock(blockName);
+            }
+            if (block != null) {
+                block.SetActive(false);
             }
             Die();
             SoundManager.instance.PlaySound(BossDieSound);
-
-
         }
         Debug.Log(health);
     }
 
-    void Die()
-    {
-        if (deathEffect != null)
-        {
+    void Die() {
+        if (deathEffect != null) {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);

@@ -20,15 +20,15 @@ public class EnemyBullet : MonoBehaviour {
         }
     }
 
-    public void Shoot(Vector2 direction, float force) {
+    public void Shoot(Vector2 direction, float force, bool setAngle = true) {
         rigidbody2d.AddForce(direction.normalized * force);
 
         // Calculate the angle in degrees
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Apply the rotation to the transform
-        //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));e
-        transform.Rotate(0, 0, angle);
+        if (setAngle) {
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // Apply the rotation to the transform
+            transform.Rotate(0, 0, angle);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {

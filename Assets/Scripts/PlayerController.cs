@@ -8,8 +8,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
     public int lifespan = 0;
     public int Sethp = 4;
     public float speed = 5.0f;
@@ -66,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     // Start is called before the first frame update
 
-    bool eyeSkill = false, legSkill = false, handSkill = false;
+    public bool eyeSkill = false, legSkill = false, handSkill = false;
 
     /*
     0 = no skill
@@ -82,8 +81,7 @@ public class PlayerController : MonoBehaviour
     IconController iconController;
     UnityEngine.UI.Image iconMask;
     GameObject nightVisionTile;
-    void Start()
-    {
+    void Start() {
         SafeCollection = GameObject.Find("SafePointCollection");
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -98,31 +96,26 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         //Activate Skills
         Light2D[] lights = FindObjectsOfType<Light2D>();
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
+        if (Input.GetKey(KeyCode.LeftControl)) {
 
-            if (currentSkill == 1 && eyeSkillCooldownTimer <= 0)
-            {
+            if (currentSkill == 1 && eyeSkillCooldownTimer <= 0) {
                 eyeSkillActive = true;
                 SoundManager.instance.PlaySound(UseSkillSound);
 
                 eyeSkillActiveTimer = eyeSkillActiveTime;
                 eyeSkillCooldownTimer = eyeSkillCooldown;
             }
-            if (currentSkill == 2 && legSkillCooldownTimer <= 0)
-            {
+            if (currentSkill == 2 && legSkillCooldownTimer <= 0) {
                 legSkillActive = true;
                 SoundManager.instance.PlaySound(UseSkillSound);
 
                 legSkillActiveTimer = legSkillActiveTime;
                 legSkillCooldownTimer = legSkillCooldown;
             }
-            if (currentSkill == 3 && handSkillCooldownTimer <= 0)
-            {
+            if (currentSkill == 3 && handSkillCooldownTimer <= 0) {
                 handSkillActive = true;
                 SoundManager.instance.PlaySound(UseSkillSound);
 
@@ -132,209 +125,145 @@ public class PlayerController : MonoBehaviour
         }
 
         //handle eye skill activate
-        if (eyeSkillActive)
-        {
-            foreach (var light in lights)
-            {
+        if (eyeSkillActive) {
+            foreach (var light in lights) {
                 light.enabled = true;
             }
-            if (nightVisionTile != null)
-            {
+            if (nightVisionTile != null) {
                 nightVisionTile.GetComponent<TilemapRenderer>().enabled = true;
             }
             eyeSkillActiveTimer -= Time.deltaTime;
-        }
-        else
-        {
-            foreach (var light in lights)
-            {
-                if (light.CompareTag("WeakPoint"))
-                {
+        } else {
+            foreach (var light in lights) {
+                if (light.CompareTag("WeakPoint")) {
                     light.enabled = false;
                 }
             }
-            if (nightVisionTile != null)
-            {
+            if (nightVisionTile != null) {
                 nightVisionTile.GetComponent<TilemapRenderer>().enabled = false;
             }
             eyeSkillCooldownTimer -= Time.deltaTime;
         }
-        if (eyeSkillActiveTimer <= 0)
-        {
+        if (eyeSkillActiveTimer <= 0) {
             eyeSkillActive = false;
         }
 
         //handle leg skill activate
-        if (legSkillActive)
-        {
+        if (legSkillActive) {
             legSkillActiveTimer -= Time.deltaTime;
-        }
-        else
-        {
+        } else {
             legSkillCooldownTimer -= Time.deltaTime;
             jumpCount = 100;
         }
-        if (legSkillActiveTimer <= 0)
-        {
+        if (legSkillActiveTimer <= 0) {
             legSkillActive = false;
         }
 
         //handle hand skill activate
-        if (handSkillActive)
-        {
+        if (handSkillActive) {
             handSkillActiveTimer -= Time.deltaTime;
-        }
-        else
-        {
+        } else {
             handSkillCooldownTimer -= Time.deltaTime;
         }
-        if (handSkillActiveTimer <= 0)
-        {
+        if (handSkillActiveTimer <= 0) {
             handSkillActive = false;
         }
 
         //handle icon light
-        if ((eyeSkillActive && currentSkill == 1) || (legSkillActive && currentSkill == 2) || (handSkillActive && currentSkill == 3))
-        {
-            foreach (var light in lights)
-            {
-                if (light.CompareTag("Icon"))
-                {
+        if ((eyeSkillActive && currentSkill == 1) || (legSkillActive && currentSkill == 2) || (handSkillActive && currentSkill == 3)) {
+            foreach (var light in lights) {
+                if (light.CompareTag("Icon")) {
                     light.intensity = 1.5f;
                 }
             }
-        }
-        else
-        {
-            foreach (var light in lights)
-            {
-                if (light.CompareTag("Icon"))
-                {
+        } else {
+            foreach (var light in lights) {
+                if (light.CompareTag("Icon")) {
                     light.intensity = 0.5f;
                 }
             }
         }
 
         //handle icon cooldown mask
-        if (currentSkill == 1)
-        {
-            if (eyeSkillActive)
-            {
+        if (currentSkill == 1) {
+            if (eyeSkillActive) {
                 iconMask.fillAmount = 1 - eyeSkillActiveTimer / eyeSkillActiveTime;
-            }
-            else
-            {
-                if (eyeSkillCooldownTimer >= 0)
-                {
+            } else {
+                if (eyeSkillCooldownTimer >= 0) {
                     iconMask.fillAmount = eyeSkillCooldownTimer / eyeSkillCooldown;
-                }
-                else
-                {
+                } else {
                     iconMask.fillAmount = 0;
                 }
             }
         }
-        if (currentSkill == 2)
-        {
-            if (legSkillActive)
-            {
+        if (currentSkill == 2) {
+            if (legSkillActive) {
                 iconMask.fillAmount = 1 - legSkillActiveTimer / legSkillActiveTime;
-            }
-            else
-            {
-                if (legSkillCooldownTimer >= 0)
-                {
+            } else {
+                if (legSkillCooldownTimer >= 0) {
                     iconMask.fillAmount = legSkillCooldownTimer / legSkillCooldown;
-                }
-                else
-                {
+                } else {
                     iconMask.fillAmount = 0;
                 }
             }
         }
-        if (currentSkill == 3)
-        {
-            if (handSkillActive)
-            {
+        if (currentSkill == 3) {
+            if (handSkillActive) {
                 iconMask.fillAmount = 1 - handSkillActiveTimer / handSkillActiveTime;
-            }
-            else
-            {
-                if (handSkillCooldownTimer >= 0)
-                {
+            } else {
+                if (handSkillCooldownTimer >= 0) {
                     iconMask.fillAmount = handSkillCooldownTimer / handSkillCooldown;
-                }
-                else
-                {
+                } else {
                     iconMask.fillAmount = 0;
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
 
-            if (eyeSkill && legSkill && handSkill)
-            {
+            if (eyeSkill && legSkill && handSkill) {
                 currentSkill += 1;
 
-                if (currentSkill > 3)
-                {
+                if (currentSkill > 3) {
                     currentSkill = 1;
                 }
-            }
-            else if (eyeSkill && legSkill)
-            {
+            } else if (eyeSkill && legSkill) {
                 currentSkill += 1;
-                if (currentSkill > 2)
-                {
+                if (currentSkill > 2) {
                     currentSkill = 1;
                 }
-            }
-            else if (eyeSkill)
-            {
+            } else if (eyeSkill) {
                 currentSkill = 1;
             }
-            if (currentSkill != 0)
-            {
+            if (currentSkill != 0) {
                 iconController.ChangeIcon(currentSkill);
                 SoundManager.instance.PlaySound(changeSkillSound);
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
 
-            if (eyeSkill && legSkill && handSkill)
-            {
+            if (eyeSkill && legSkill && handSkill) {
                 currentSkill -= 1;
-                if (currentSkill < 1)
-                {
+                if (currentSkill < 1) {
                     currentSkill = 3;
                 }
-            }
-            else if (eyeSkill && legSkill)
-            {
+            } else if (eyeSkill && legSkill) {
                 currentSkill -= 1;
-                if (currentSkill < 1)
-                {
+                if (currentSkill < 1) {
                     currentSkill = 2;
                 }
-            }
-            else if (eyeSkill)
-            {
+            } else if (eyeSkill) {
                 currentSkill = 1;
             }
-            if (currentSkill != 0)
-            {
+            if (currentSkill != 0) {
                 iconController.ChangeIcon(currentSkill);
                 SoundManager.instance.PlaySound(changeSkillSound);
 
             }
         }
 
-        if (!animator.GetBool("WallStuck"))
-        {
+        if (!animator.GetBool("WallStuck")) {
 
             GlobalVar.DynamicSpeedHorizontal = 0;
             GlobalVar.DynamicSpeedVertical = 0;
@@ -342,29 +271,22 @@ public class PlayerController : MonoBehaviour
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
 
-            if (FirstTimeFaceDirectionInitialize == 1)
-            {
+            if (FirstTimeFaceDirectionInitialize == 1) {
                 horizontal = 1;
                 FirstTimeFaceDirectionInitialize++;
             }
-            if (horizontal > 0 && !dashing)
-            {
+            if (horizontal > 0 && !dashing) {
                 faceDirection = 1f;
 
-            }
-            else if (horizontal < 0f && !dashing)
-            {
+            } else if (horizontal < 0f && !dashing) {
                 faceDirection = -1f;
             }
             animator.SetFloat("FaceDirection", faceDirection);
             animator.SetFloat("MoveX", faceDirection);
 
-            if (Input.GetButton("Horizontal"))
-            {
+            if (Input.GetButton("Horizontal")) {
                 animator.SetBool("Running", true);
-            }
-            else
-            {
+            } else {
                 animator.SetBool("Running", false);
             }
 
@@ -372,17 +294,13 @@ public class PlayerController : MonoBehaviour
             RaycastHit2D onGround2 = Physics2D.Raycast(GetBottomPoint(), Vector2.down, 0.2f, LayerMask.GetMask("Default") + LayerMask.GetMask("Dynamic") + LayerMask.GetMask("NoStuck"));
             RaycastHit2D onGround3 = Physics2D.Raycast(GetBottomRight(), Vector2.down, 0.2f, LayerMask.GetMask("Default") + LayerMask.GetMask("Dynamic") + LayerMask.GetMask("NoStuck"));
 
-            if (onGround1 || onGround2 || onGround3)
-            {
+            if (onGround1 || onGround2 || onGround3) {
                 onGround = true;
                 animator.SetBool("OnGround", true);
-                if (legSkillActive)
-                {
+                if (legSkillActive) {
                     jumpCount = 0;
                 }
-            }
-            else
-            {
+            } else {
                 onGround = false;
                 animator.SetBool("OnGround", false);
 
@@ -390,27 +308,23 @@ public class PlayerController : MonoBehaviour
 
             animator.SetBool("NoDash", false);
 
-            if (Input.GetKeyDown(KeyCode.Space) && (onGround || jumpCount <= 1))
-            {
+            if (Input.GetKeyDown(KeyCode.Space) && (onGround || jumpCount <= 1)) {
                 jump = true;
                 SoundManager.instance.PlaySound(JumpSound);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !nodash)
-            {
+            if (Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !nodash) {
                 SoundManager.instance.PlaySound(DashSound);
 
                 dash = true;
                 dashCooldownTimer = dashCooldown;
                 dashDirection = faceDirection;
             }
-            if (dashing)
-            {
+            if (dashing) {
                 animator.SetBool("Dashing", true);
                 animator.SetFloat("DashDirection", dashDirection);
             }
-            if (!dashing)
-            {
+            if (!dashing) {
                 animator.SetBool("Dashing", false);
                 dashCooldownTimer -= Time.deltaTime;
             }
@@ -418,8 +332,7 @@ public class PlayerController : MonoBehaviour
 
 
             shaking -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Z) && shaking <= 0f && !dashing)
-            {
+            if (Input.GetKeyDown(KeyCode.Z) && shaking <= 0f && !dashing) {
                 animator.SetFloat("AttackDirection", animator.GetFloat("FaceDirection"));
                 shaking = 0.5f;
                 animator.SetBool("UpAttacking", true);
@@ -428,20 +341,15 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Attacking", true);
                 nodash = true;
                 Invoke("ableDash", 1f);
-                if (faceDirection > 0.1f)
-                {
+                if (faceDirection > 0.1f) {
                     //Invoke("ActivateURKatana", 0.25f);
                     //Invoke("DeactivateURKatana", 0.45f);
-                }
-                else if (faceDirection < -0.1f)
-                {
+                } else if (faceDirection < -0.1f) {
                     //Invoke("ActivateULKatana", 0.25f);
                     //Invoke("DeactivateULKatana", 0.45f);
                 }
 
-            }
-            else if (Input.GetKeyDown(KeyCode.X) && shaking <= 0f && !dashing)
-            {
+            } else if (Input.GetKeyDown(KeyCode.X) && shaking <= 0f && !dashing) {
                 animator.SetFloat("AttackDirection", animator.GetFloat("FaceDirection"));
                 shaking = 0.5f;
                 animator.SetBool("UpAttacking", false);
@@ -450,19 +358,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Attacking", true);
                 nodash = true;
                 Invoke("ableDash", 1f);
-                if (faceDirection > 0.1f)
-                {
+                if (faceDirection > 0.1f) {
                     //Invoke("ActivateMRKatana", 0.45f);
                     //Invoke("DeactivateMRKatana", 0.65f);
-                }
-                else if (faceDirection < -0.1f)
-                {
+                } else if (faceDirection < -0.1f) {
                     //Invoke("ActivateMLKatana", 0.45F);
                     //Invoke("DeactivateMLKatana", 0.65f);
                 }
-            }
-            else if (Input.GetKeyDown(KeyCode.C) && shaking <= 0f && !onGround && !dashing)
-            {
+            } else if (Input.GetKeyDown(KeyCode.C) && shaking <= 0f && !onGround && !dashing) {
                 animator.SetFloat("AttackDirection", animator.GetFloat("FaceDirection"));
                 shaking = 0.5f;
                 animator.SetBool("UpAttacking", false);
@@ -471,42 +374,33 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Attacking", true);
                 nodash = true;
                 Invoke("ableDash", 1f);
-                if (faceDirection > 0.1f)
-                {
+                if (faceDirection > 0.1f) {
                     //Invoke("ActivateDRKatana", 0.25f);
                     //Invoke("DeactivateDRKatana", 0.45f);
-                }
-                else if (faceDirection < -0.1f)
-                {
+                } else if (faceDirection < -0.1f) {
                     //Invoke("ActivateDLKatana", 0.25f);
                     //Invoke("DeactivateDLKatana", 0.45f);
                 }
-            }
-            else
-            {
+            } else {
                 animator.SetBool("UpAttacking", false);
                 animator.SetBool("MidAttacking", false);
                 animator.SetBool("DownAttacking", false);
             }
             GlobalVar.DynamicCode = 0;
             GlobalVar.DynamicBlockStuck = false;
-        }
-        else
-        {
+        } else {
             jumpCount = 0;
             rigidbody2d.constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
             //Invoke("ColliderOffsetup",0.1f);
             //Invoke("ColliderOffset", 0.2f);
 
-            if (GlobalVar.DynamicBlockStuck)
-            {
+            if (GlobalVar.DynamicBlockStuck) {
 
                 transform.Translate(Vector2.right * GlobalVar.DynamicSpeedHorizontal * Time.deltaTime, Space.Self);
                 transform.Translate(Vector2.up * GlobalVar.DynamicSpeedVertical * Time.deltaTime, Space.Self);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+            if (Input.GetKeyDown(KeyCode.Space)) {
                 rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
                 jump = true;
                 SoundManager.instance.PlaySound(JumpSound);
@@ -514,16 +408,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("WallStuck", false);
                 GlobalVar.DynamicBlockStuck = false;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
+            if (Input.GetKeyDown(KeyCode.LeftShift)) {
                 dashDirection = faceDirection;
                 dash = true;
                 rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
                 animator.SetBool("WallStuck", false);
                 GlobalVar.DynamicBlockStuck = false;
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
+            if (Input.GetKeyDown(KeyCode.DownArrow)) {
                 rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
                 animator.SetBool("WallStuck", false);
                 GlobalVar.DynamicBlockStuck = false;
@@ -532,43 +424,33 @@ public class PlayerController : MonoBehaviour
         stuntime -= Time.deltaTime;
     }
 
-    void FixedUpdate()
-    {
+    void FixedUpdate() {
         rigidbody2d.velocity = new Vector2(horizontal * speed, rigidbody2d.velocity.y);
 
-        if (jump)
-        {
+        if (jump) {
             rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x, jumpHeight);
             jump = false;
             jumpCount++;
         }
 
-        if (dash)
-        {
+        if (dash) {
             dashTimer = dashTime;
             dashing = true;
         }
-        if (dashing)
-        {
+        if (dashing) {
             dash = false;
             rigidbody2d.gravityScale = 0f;
-            if (dashDirection >= 0f)
-            {
+            if (dashDirection >= 0f) {
                 rigidbody2d.velocity = new Vector2(dashSpeed, 0);
-            }
-            else if (dashDirection < 0f)
-            {
+            } else if (dashDirection < 0f) {
                 rigidbody2d.velocity = new Vector2(-dashSpeed, 0);
             }
             dashTimer -= Time.fixedDeltaTime;
-            if (dashTimer < 0)
-            {
+            if (dashTimer < 0) {
                 dashing = false;
             }
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
-        }
-        else
-        {
+        } else {
             rigidbody2d.gravityScale = 3f;
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 
@@ -577,19 +459,14 @@ public class PlayerController : MonoBehaviour
 
 
     bool exitCollision = false;
-    private void OnCollisionStay2D(Collision2D other)
-    {
+    private void OnCollisionStay2D(Collision2D other) {
         //Debug.Log("stay collision");
-        if (GlobalVar.DynamicBlockStuck && GlobalVar.DynamicSpeedVertical != 0)
-        {
-            if (GlobalVar.DynamicSpeedVertical < 0)
-            {
+        if (GlobalVar.DynamicBlockStuck && GlobalVar.DynamicSpeedVertical != 0) {
+            if (GlobalVar.DynamicSpeedVertical < 0) {
                 rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
                 animator.SetBool("WallStuck", false);
                 GlobalVar.DynamicBlockStuck = false;
-            }
-            else if (exitCollision)
-            {
+            } else if (exitCollision) {
                 rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
                 animator.SetBool("WallStuck", false);
                 GlobalVar.DynamicBlockStuck = false;
@@ -609,49 +486,37 @@ public class PlayerController : MonoBehaviour
         exitCollision = false;
     }
 
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Default") || other.gameObject.layer == LayerMask.NameToLayer("Trap"))
-        {
+    private void OnCollisionExit2D(Collision2D other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Default") || other.gameObject.layer == LayerMask.NameToLayer("Trap")) {
             exitCollision = true;
         }
     }
 
-    private void ColliderOffsetup()
-    {
+    private void ColliderOffsetup() {
         playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y + 1f);
     }
-    private void ColliderOffset()
-    {
+    private void ColliderOffset() {
         playerCollider.offset = new Vector2(playerCollider.offset.x, playerCollider.offset.y - 1f);
     }
-    public void Freeze()
-    {
+    public void Freeze() {
         rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
     }
-    public void HPRecover(int amount)
-    {
+    public void HPRecover(int amount) {
         hp += amount;
     }
 
-    public void HPRecoverAll()
-    {
+    public void HPRecoverAll() {
         hp = Sethp;
     }
 
-    public void AddLife()
-    {
+    public void AddLife() {
         lifespan++;
     }
-    public void ChangeHP()
-    {
-        if (stuntime < 0)
-        {
-            if (hp > 0)
-            {
+    public void ChangeHP() {
+        if (stuntime < 0) {
+            if (hp > 0) {
                 hp--;
-                if (hp > 0)
-                {
+                if (hp > 0) {
                     animator.SetTrigger("Hit");
                     SoundManager.instance.PlaySound(GotDamageSound);
 
@@ -660,11 +525,9 @@ public class PlayerController : MonoBehaviour
                 healthBar.SetValue(hp / (float)Sethp);
 
             }
-            if (hp <= 0)
-            {
+            if (hp <= 0) {
                 animator.SetTrigger("Death");
-                if (lifespan > 0)
-                {
+                if (lifespan > 0) {
                     lifespan--;
                     SoundManager.instance.PlaySound(DieSound);
 
@@ -675,9 +538,7 @@ public class PlayerController : MonoBehaviour
                     hp = Sethp;
                     healthBar.SetValue(hp / (float)Sethp);
 
-                }
-                else if (lifespan <= 0)
-                {
+                } else if (lifespan <= 0) {
                     stuntime = 1000f;
                     Debug.Log("Death");
 
@@ -689,16 +550,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Teleport()
-    {
+    public void Teleport() {
         Transform safepointTransform = SafeCollection.transform.GetChild(GlobalVar.SafePointPosition).transform;
         transform.position = safepointTransform.position;
         rigidbody2d.constraints = ~RigidbodyConstraints2D.FreezePosition;
         animator.SetTrigger("Respawn");
     }
 
-    private Vector2 GetBottomPoint()
-    {
+    private Vector2 GetBottomPoint() {
         Collider2D collider = rigidbody2d.GetComponent<Collider2D>();
         Vector2 colliderSize = collider.bounds.size;
         Vector2 bottomPoint = new Vector2(rigidbody2d.position.x, rigidbody2d.position.y - colliderSize.y * 0.5f);
@@ -706,24 +565,21 @@ public class PlayerController : MonoBehaviour
         return bottomPoint;
     }
 
-    private Vector2 GetBottomRight()
-    {
+    private Vector2 GetBottomRight() {
         Collider2D collider = rigidbody2d.GetComponent<Collider2D>();
         Vector2 colliderSize = collider.bounds.size;
         Vector2 bottomRight = new Vector2(rigidbody2d.position.x + colliderSize.x * 0.5f, rigidbody2d.position.y - colliderSize.y * 0.5f);
 
         return bottomRight;
     }
-    private Vector2 GetBottomLeft()
-    {
+    private Vector2 GetBottomLeft() {
         Collider2D collider = rigidbody2d.GetComponent<Collider2D>();
         Vector2 colliderSize = collider.bounds.size;
         Vector2 bottomLeft = new Vector2(rigidbody2d.position.x - colliderSize.x * 0.5f, rigidbody2d.position.y - colliderSize.y * 0.5f);
 
         return bottomLeft;
     }
-    private Vector2 GetRight()
-    {
+    private Vector2 GetRight() {
         Collider2D collider = rigidbody2d.GetComponent<Collider2D>();
         Vector2 colliderSize = collider.bounds.size;
         Vector2 right = new Vector2(rigidbody2d.position.x + colliderSize.x * 0.5f, rigidbody2d.position.y);
@@ -731,69 +587,54 @@ public class PlayerController : MonoBehaviour
         return right;
     }
 
-    private Vector2 GetLeft()
-    {
+    private Vector2 GetLeft() {
         Collider2D collider = rigidbody2d.GetComponent<Collider2D>();
         Vector2 colliderSize = collider.bounds.size;
         Vector2 left = new Vector2(rigidbody2d.position.x - colliderSize.x * 0.5f, rigidbody2d.position.y);
 
         return left;
     }
-    private void ableDash()
-    {
+    private void ableDash() {
         nodash = false;
     }
 
-    private void ActivateULKatana()
-    {
+    private void ActivateULKatana() {
         UpLCollider.SetActive(true);
     }
-    private void DeactivateULKatana()
-    {
+    private void DeactivateULKatana() {
         UpLCollider.SetActive(false);
     }
-    private void ActivateURKatana()
-    {
+    private void ActivateURKatana() {
         UpRCollider.SetActive(true);
     }
-    private void DeactivateURKatana()
-    {
+    private void DeactivateURKatana() {
         UpRCollider.SetActive(false);
     }
-    private void ActivateMRKatana()
-    {
+    private void ActivateMRKatana() {
         MidRCollider.SetActive(true);
     }
-    private void DeactivateMRKatana()
-    {
+    private void DeactivateMRKatana() {
         MidRCollider.SetActive(false);
     }
-    private void ActivateMLKatana()
-    {
+    private void ActivateMLKatana() {
         MidLCollider.SetActive(true);
     }
-    private void DeactivateMLKatana()
-    {
+    private void DeactivateMLKatana() {
         MidLCollider.SetActive(false);
     }
-    private void ActivateDRKatana()
-    {
+    private void ActivateDRKatana() {
         DownRCollider.SetActive(true);
     }
-    private void DeactivateDRKatana()
-    {
+    private void DeactivateDRKatana() {
         DownRCollider.SetActive(false);
     }
-    private void ActivateDLKatana()
-    {
+    private void ActivateDLKatana() {
         DownLCollider.SetActive(true);
     }
-    private void DeactivateDLKatana()
-    {
+    private void DeactivateDLKatana() {
         DownLCollider.SetActive(false);
     }
-    private void DeactivateAllKatana()
-    {
+    private void DeactivateAllKatana() {
         UpLCollider.SetActive(false);
         UpRCollider.SetActive(false);
         MidRCollider.SetActive(false);
@@ -801,8 +642,7 @@ public class PlayerController : MonoBehaviour
         DownRCollider.SetActive(false);
         DownLCollider.SetActive(false);
     }
-    public void GetEyeSkill()
-    {
+    public void GetEyeSkill() {
         SoundManager.instance.PlaySound(getskillSound);
 
         eyeSkill = true;
@@ -810,8 +650,7 @@ public class PlayerController : MonoBehaviour
         iconController.ChangeIcon(currentSkill);
     }
 
-    public void GetLegSkill()
-    {
+    public void GetLegSkill() {
         SoundManager.instance.PlaySound(getskillSound);
 
         legSkill = true;
@@ -819,30 +658,26 @@ public class PlayerController : MonoBehaviour
         iconController.ChangeIcon(currentSkill);
     }
 
-    public void GetHandSkill()
-    {
+    public void GetHandSkill() {
         SoundManager.instance.PlaySound(getskillSound);
 
         handSkill = true;
         currentSkill = 3;
         iconController.ChangeIcon(currentSkill);
     }
-    private void Slash1()
-    {
+    private void Slash1() {
         SoundManager.instance.PlaySound(slashSound);
         return;
     }
 
 
 
-    private void Walk1()
-    {
+    private void Walk1() {
         SoundManager.instance.PlaySound(WalkSound1);
         return;
     }
 
-    private void Walk2()
-    {
+    private void Walk2() {
         SoundManager.instance.PlaySound(WalkSound2);
         return;
     }

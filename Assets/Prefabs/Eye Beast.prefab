@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  attackRange: 4
-  sightRange: 8
+  attackRange: 5
+  sightRange: 10
   attackCooldown: 1
   projectileSpeed: 150
   projectilePrefab: {fileID: 330673908736080135, guid: d996fbb81475e544abe46451b2467743, type: 3}
