@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 668af6673f9d4fc4b8c435be62cdfc09
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - warriorIcon: {fileID: 21300000, guid: b2bf07d1b2891664a897588b7138b90d, type: 3}
+  - gunnerIcon: {fileID: 21300000, guid: 0118813a668be344d80bbd4bce3695ea, type: 3}
+  - defenderIcon: {fileID: 21300000, guid: d2d9347bda09a75429a2aa13f6bd8653, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 55e963bf1763713439250f40ca5d8b32
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - enemyBulletPrefab: {instanceID: 0}
+  - deathEffect: {instanceID: 0}
+  - gotdamage: {instanceID: 0}
+  - DieSound: {fileID: 8300000, guid: a2fb4e03fb620f64599f94d51ec0c5b1, type: 3}
+  - ClawSound: {instanceID: 0}
+  - EnemyShootSound: {instanceID: 0}
+  - ShieldSound: {instanceID: 0}
+  - coinPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

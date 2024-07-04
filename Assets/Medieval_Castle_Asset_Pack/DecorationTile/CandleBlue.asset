@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: CandleBlue
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 21300000, guid: 5889c6405b4d60a4a8a7db4629aceed0, type: 3}
+  - {fileID: 21300000, guid: 984785ed14ba2b04394c1351ff8570da, type: 3}
+  - {fileID: 21300000, guid: fd664bcde65aa534dbef900b9c92d2e6, type: 3}
+  - {fileID: 21300000, guid: d7b50c9f97d8aec4bb5c133bd5438103, type: 3}
+  - {fileID: 21300000, guid: 81e6ac746d02dc646a2f934f9c008438, type: 3}
+  - {fileID: 21300000, guid: e521f035c6c5ad848923f025b7e197b7, type: 3}
+  m_MinSpeed: 5
+  m_MaxSpeed: 5
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0

@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: bbe046e60a9536d408ac5e05ada2f810
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - UpRCollider: {instanceID: 0}
+  - UpLCollider: {instanceID: 0}
+  - MidRCollider: {instanceID: 0}
+  - MidLCollider: {instanceID: 0}
+  - DownRCollider: {instanceID: 0}
+  - DownLCollider: {instanceID: 0}
+  - slashSound: {instanceID: 0}
+  - slashSound2: {instanceID: 0}
+  - JumpSound: {instanceID: 0}
+  - DashSound: {instanceID: 0}
+  - WalkSound1: {fileID: 8300000, guid: 8cf0ab86323ae8d44a32611c86671a75, type: 3}
+  - WalkSound2: {fileID: 8300000, guid: 0cf4baa6e14d85640bb0d4302120fd69, type: 3}
+  - GotDamageSound: {instanceID: 0}
+  - DieSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
