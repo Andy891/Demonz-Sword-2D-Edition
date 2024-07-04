@@ -128,6 +128,8 @@ MonoBehaviour:
   projectileSpeed: 150
   projectilePrefab: {fileID: 330673908736080135, guid: d996fbb81475e544abe46451b2467743, type: 3}
   deathEffect: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
+  fireballSound: {fileID: 8300000, guid: 30c3dd9bad003d74888443ca1fed3b42, type: 3}
+  DeadSound: {fileID: 8300000, guid: 9347ea7eb8b1ea24880353b1e25e8647, type: 3}
 --- !u!61 &5052712439269562254
 BoxCollider2D:
   m_ObjectHideFlags: 0
