@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Demonz-Sword-2D-Edition.sln"
+    "dotnet.defaultSolution": "Demonz Sword 2D Edition.sln"
 }
