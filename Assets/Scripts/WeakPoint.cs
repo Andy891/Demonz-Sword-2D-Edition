@@ -39,8 +39,9 @@ public class WeakPoint : MonoBehaviour
     {
         Scene activeScene = SceneManager.GetActiveScene();
         if (activeScene.isLoaded)
+        {
             Instantiate(damageParticles, transform.position, Quaternion.identity);
-        SoundManager.instance.PlaySound(HitWeakPointSound);
-
+            SoundManager.instance.PlaySound(HitWeakPointSound);
+        }
     }
 }
