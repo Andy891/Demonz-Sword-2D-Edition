@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     public float dashCooldown = 1.0f;
     public bool onGround;
     public GameObject UpRCollider;
+    private UIManager uiManager;
+
     public GameObject UpLCollider;
     public GameObject MidRCollider;
     public GameObject MidLCollider;
@@ -87,6 +89,8 @@ public class PlayerController : MonoBehaviour {
         animator = GetComponent<Animator>();
         PlayerSprite = GetComponent<SpriteRenderer>();
         hp = Sethp;
+        uiManager = FindObjectOfType<UIManager>();
+
         FirstTimeFaceDirectionInitialize = 1;
         playerCollider = GetComponent<BoxCollider2D>();
         healthBar = FindObjectOfType<UIHealthBar>();
@@ -539,6 +543,8 @@ public class PlayerController : MonoBehaviour {
                     healthBar.SetValue(hp / (float)Sethp);
 
                 } else if (lifespan <= 0) {
+                    uiManager.GameOver();
+
                     stuntime = 1000f;
                     Debug.Log("Death");
 
