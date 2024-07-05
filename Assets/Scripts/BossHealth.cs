@@ -72,6 +72,10 @@ public class BossHealth : MonoBehaviour {
         if (deathEffect != null) {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+        BoxCollider2D boxCollider2d = GetComponentInParent<BoxCollider2D>();
+        if (boxCollider2d != null) {
+            boxCollider2d.enabled = false;
+        }
         Destroy(gameObject);
     }
 
