@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7943555179517722973}
   - component: {fileID: 5845443769829387510}
   - component: {fileID: 6369169236805133140}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WoodBlock
   m_TagString: Breakable
   m_Icon: {fileID: 0}

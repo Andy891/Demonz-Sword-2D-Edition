@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5001375427103830525}
   - component: {fileID: 2622376367387688130}
   - component: {fileID: 236592832521578912}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WoodBlockButHorizon
   m_TagString: Breakable
   m_Icon: {fileID: 0}

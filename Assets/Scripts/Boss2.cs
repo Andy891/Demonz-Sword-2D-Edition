@@ -35,7 +35,7 @@ public class Boss2 : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (!start && Vector2.Distance(transform.position, player.position) < 15) {
+        if (!start && Vector2.Distance(transform.position, player.position) < 13) {
             start = true;
             cam.orthographicSize = 10;
             cameraFollow.yOffset = 5;
@@ -242,5 +242,9 @@ public class Boss2 : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
         DropedReward = true;
+    }
+    private void OnDestroy() {
+        cam.orthographicSize = 6;
+        cameraFollow.yOffset = 1;
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9120794532422361651}
   - component: {fileID: 8343066832935467172}
   - component: {fileID: 2348023974826813638}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WoodElevator
   m_TagString: Breakable
   m_Icon: {fileID: 0}
