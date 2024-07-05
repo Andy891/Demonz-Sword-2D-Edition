@@ -144,9 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de51c555d07c04d4f83f0bb4da6ff70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
   startDelay: 0
-  destroyDelay: 52
+  destroyDelay: 104
   targetPosition: {fileID: 1576591558955161289}
 --- !u!1 &7557308462462419617
 GameObject:
