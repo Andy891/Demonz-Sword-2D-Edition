@@ -511,6 +511,7 @@ public class PlayerController : MonoBehaviour {
 
     public void HPRecoverAll() {
         hp = Sethp;
+        healthBar.SetValue(hp / (float)Sethp);
     }
 
     public void AddLife() {
